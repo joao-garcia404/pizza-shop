@@ -30,6 +30,7 @@ Technologies that I used to develop this project
 - [Vite](https://vitejs.dev)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Shadcn/ui](https://ui.shadcn.com)
+- [Tailwind CSS](https://tailwindcss.com)
 - [Sonner](https://sonner.emilkowal.ski)
 - [React Hook Form](https://react-hook-form.com)
 - [Zod](https://github.com/colinhacks/zod)
