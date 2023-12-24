@@ -1,30 +1,59 @@
-# React + TypeScript + Vite
+<h1 align="center">
+  🍕 PizzaShop
+</h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">Manage your delivery orders</p>
 
-Currently, two official plugins are available:
+<p align="center">
+  <a href="#-about-the-project">About the project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-getting-started">Getting started</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-license">License</a>
+</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 👨🏻‍💻 About the project
 
-## Expanding the ESLint configuration
+- <p>Pizza shop is a project for managing delivery orders for your business</p>
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+![image](https://github.com/joao-garcia404/ignite-call/assets/68558302/4175a69f-c06b-4885-a327-2b243717254f)
+![image](https://github.com/joao-garcia404/ignite-call/assets/68558302/c431e17f-f686-4c65-bed3-fe90df7d77d2)
 
-- Configure the top-level `parserOptions` property like this:
+## 🚀 Technologies
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+Technologies that I used to develop this project
+
+- [Vite](https://vitejs.dev)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Shadcn/ui](https://ui.shadcn.com)
+- [Sonner](https://sonner.emilkowal.ski)
+- [React Hook Form](https://react-hook-form.com)
+- [Zod](https://github.com/colinhacks/zod)
+- [Recharts](https://recharts.org/en-US/)
+
+## 💻 Getting started
+
+### Requirements
+
+**Clone the project and access the folder**
+
+```bash
+$ git clone https://github.com/joao-garcia404/pizzashop-web && cd pizzashop-web
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+**Follow the steps below**
+
+```bash
+# Install the dependencies
+$ pnpm i
+
+# Start the client
+$ pnpm run dev
+```
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+Made with 💜 &nbsp;by João Vitor Garcia 👋 &nbsp;[See my linkedin](https://www.linkedin.com/in/joao-garcia404/)
