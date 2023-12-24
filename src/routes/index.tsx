@@ -9,10 +9,13 @@ import { Orders } from "@/view/pages/app/orders/orders";
 import { SignIn } from "@/view/pages/auth/sign-in";
 import { SignUp } from "@/view/pages/auth/sign-up";
 
+import { NotFound } from "@/view/pages/404";
+
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <AppLayout />,
+    errorElement: <NotFound />,
     children: [
       {
         path: "/",
