@@ -15,8 +15,13 @@
 
 - <p>Pizza shop is a project for managing delivery orders for your business</p>
 
-![image](https://github.com/joao-garcia404/ignite-call/assets/68558302/4175a69f-c06b-4885-a327-2b243717254f)
-![image](https://github.com/joao-garcia404/ignite-call/assets/68558302/c431e17f-f686-4c65-bed3-fe90df7d77d2)
+<h3>Dashboard preview</h3>
+
+![dashboard-preview](https://github.com/joao-garcia404/pizzashop-web/assets/68558302/b2ad30ac-71b6-4f7f-ae64-da747ebf6671)
+
+<h3>Orders preview</h3>
+
+![orders-preview](https://github.com/joao-garcia404/pizzashop-web/assets/68558302/acf993ac-5bf5-4575-96c3-8e4ecfe13a16)
 
 ## 🚀 Technologies
 
@@ -52,7 +57,7 @@ $ pnpm run dev
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ---
 
