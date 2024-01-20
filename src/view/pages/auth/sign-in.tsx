@@ -1,13 +1,17 @@
 import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+
+import { toast } from "sonner";
 
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { z } from "zod";
 
+import { signIn } from "@/app/services/auth";
+
 import { Button } from "@/view/components/ui/button";
 import { Input } from "@/view/components/ui/input";
 import { Label } from "@/view/components/ui/label";
-import { toast } from "sonner";
 
 const signInFormSchema = z.object({
   email: z.string().email(),
@@ -26,11 +30,20 @@ export function SignIn() {
     },
   });
 
+  const { mutateAsync: authenticate } = useMutation({
+    mutationFn: signIn,
+  });
+
   async function handleSignIn(data: SignInForm) {
     try {
-      console.log(data);
+      await authenticate({ email: data.email });
 
-      toast.success("Enviamos um link de autenticação para seu e-mail");
+      toast.success("Enviamos um link de autenticação para seu e-mail.", {
+        action: {
+          label: "Reenviar",
+          onClick: () => handleSignIn(data),
+        },
+      });
     } catch {
       toast.error("Credenciais inválidas.");
     }
