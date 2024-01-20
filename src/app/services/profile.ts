@@ -15,3 +15,14 @@ export async function getProfile() {
 
   return response.data;
 }
+
+
+interface UpdateProfileBody {
+  name: string;
+  description: string | null;
+}
+
+export async function updateProfile(body: UpdateProfileBody) {
+  await httpClient.put('/profile', body);
+}
+

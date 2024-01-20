@@ -1,6 +1,6 @@
 import { httpClient } from "../lib/axios";
 
-interface GetManagedRestaurant {
+export interface GetManagedRestaurantRes {
   id: string;
   name: string;
   description: string | null;
@@ -10,7 +10,9 @@ interface GetManagedRestaurant {
 }
 
 export async function getManagedRestaurant() {
-  const response = await httpClient.get<GetManagedRestaurant>('/managed-restaurant');
+  const response = await httpClient.get<GetManagedRestaurantRes>(
+    "/managed-restaurant",
+  );
 
   return response.data;
 }
