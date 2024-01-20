@@ -1,5 +1,16 @@
 import { httpClient } from "../lib/axios";
 
+interface RegisterRestaurantBody {
+  email: string;
+  restaurantName: string;
+  managerName: string;
+  phone: string;
+}
+
+export async function registerRestaurant(body: RegisterRestaurantBody) {
+  await httpClient.post("/restaurants", body);
+}
+
 export interface GetManagedRestaurantRes {
   id: string;
   name: string;

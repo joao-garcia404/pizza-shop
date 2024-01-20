@@ -7,7 +7,7 @@ import { Helmet } from "react-helmet-async";
 import { z } from "zod";
 import { toast } from "sonner";
 
-import { registerRestaurant } from "@/app/services/auth";
+import { registerRestaurant } from "@/app/services/restaurant";
 
 import { Button } from "@/view/components/ui/button";
 import { Input } from "@/view/components/ui/input";
