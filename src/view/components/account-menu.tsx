@@ -7,7 +7,7 @@ import { getManagedRestaurant } from "@/app/services/restaurant";
 
 import { Button } from "./ui/button";
 import { Skeleton } from "./ui/skeleton";
-import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
+import { Dialog, DialogTrigger } from "./ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
