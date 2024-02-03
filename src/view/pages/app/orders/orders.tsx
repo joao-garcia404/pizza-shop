@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 
 import { Helmet } from "react-helmet-async";
+import { z } from "zod";
 
 import { getOrders } from "@/app/services/orders";
 
@@ -16,27 +17,37 @@ import {
 
 import { OrderTableRow } from "./orders-table-row";
 import { OrdersTableFilters } from "./orders-table-filters";
-import { z } from "zod";
 
 export function Orders() {
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const orderId = searchParams.get("orderId");
+  const customerName = searchParams.get("customerName");
+  const status = searchParams.get("status");
+
   const pageIndex = z.coerce
     .number()
     .transform((page) => page - 1)
-    .parse(searchParams.get("pageIndex") ?? '1');
+    .parse(searchParams.get("pageIndex") ?? "1");
 
   const { data: result } = useQuery({
-    queryKey: ["orders", pageIndex],
-    queryFn: () => getOrders({ pageIndex, }),
+    queryKey: ["orders", pageIndex, orderId, customerName, status],
+    queryFn: () => {
+      return getOrders({
+        pageIndex,
+        orderId,
+        customerName,
+        status: status === "all" ? null : status,
+      })
+    },
   });
 
   function handlePaginate(page: number) {
     setSearchParams((prevState) => {
-      prevState.set("pageIndex", String(page + 1))
+      prevState.set("pageIndex", String(page + 1));
 
-      return prevState
-    })
+      return prevState;
+    });
   }
 
   return (

@@ -2,13 +2,15 @@ import { httpClient } from "../lib/axios";
 
 interface GetOrdersQuery {
   pageIndex?: number | null;
-
+  orderId?: string | null;
+  status?: string | null;
+  customerName?: string | null;
 }
 
 interface GetOrdersRes {
   orders: Array<{
     orderId: string;
-    status: 'pending' | 'canceled' | 'processing' | 'delivering' | 'delivered';
+    status: "pending" | "canceled" | "processing" | "delivering" | "delivered";
     customerName: string;
     total: number;
     createdAt: string;
@@ -17,14 +19,22 @@ interface GetOrdersRes {
     pageIndex: number;
     perPage: number;
     totalCount: number;
-  }
+  };
 }
 
-export async function getOrders({ pageIndex }: GetOrdersQuery) {
-  const response = await httpClient.get<GetOrdersRes>('/orders', {
+export async function getOrders({
+  pageIndex,
+  customerName,
+  orderId,
+  status,
+}: GetOrdersQuery) {
+  const response = await httpClient.get<GetOrdersRes>("/orders", {
     params: {
-      pageIndex
-    }
+      pageIndex,
+      customerName,
+      orderId,
+      status,
+    },
   });
 
   return response.data;
