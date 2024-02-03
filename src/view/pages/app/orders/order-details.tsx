@@ -1,3 +1,10 @@
+import { useQuery } from "@tanstack/react-query";
+
+import { formatDistanceToNow } from "date-fns";
+
+import { getOrderDetails } from "@/app/services/orders";
+import { currencyFormatter } from "@/app/utils/currencyFormatter";
+
 import {
   DialogContent,
   DialogDescription,
@@ -14,11 +21,24 @@ import {
   TableRow,
 } from "@/view/components/ui/table";
 
-export function OrderDetails() {
+interface OrderDetailsProps {
+  open: boolean;
+  orderId: string;
+}
+
+export function OrderDetails({ open, orderId }: OrderDetailsProps) {
+  const { data: order } = useQuery({
+    queryKey: ["order-details", orderId],
+    queryFn: () => getOrderDetails({ orderId }),
+    enabled: open,
+  });
+
+  if (!open || !order) return null;
+
   return (
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>Pedido: 13123897123</DialogTitle>
+        <DialogTitle>Pedido: {order.id}</DialogTitle>
         <DialogDescription>Detalhes do pedido</DialogDescription>
       </DialogHeader>
 
@@ -31,7 +51,7 @@ export function OrderDetails() {
                 <div className="flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-slate-400" />
                   <span className="font-medium text-muted-foreground">
-                    Pendente
+                    {order.status}
                   </span>
                 </div>
               </TableCell>
@@ -40,21 +60,21 @@ export function OrderDetails() {
             <TableRow>
               <TableCell className="text-muted-foreground">Cliente</TableCell>
               <TableCell className="flex justify-end">
-                João Vitor Garcia
+                {order.customer.name}
               </TableCell>
             </TableRow>
 
             <TableRow>
               <TableCell className="text-muted-foreground">Telefone</TableCell>
               <TableCell className="flex justify-end">
-                (11) 912222-2112
+                {order.customer.phone ?? "Não informado"}
               </TableCell>
             </TableRow>
 
             <TableRow>
               <TableCell className="text-muted-foreground">E-mail</TableCell>
               <TableCell className="flex justify-end">
-                jvdasilvaeirasgarcia@gmail.com
+                {order.customer.email}
               </TableCell>
             </TableRow>
 
@@ -62,7 +82,11 @@ export function OrderDetails() {
               <TableCell className="text-muted-foreground">
                 Realizado há
               </TableCell>
-              <TableCell className="flex justify-end">15 minutos</TableCell>
+              <TableCell className="flex justify-end">
+                {formatDistanceToNow(new Date(order.createdAt), {
+                  addSuffix: true,
+                })}
+              </TableCell>
             </TableRow>
           </TableBody>
         </Table>
@@ -78,26 +102,29 @@ export function OrderDetails() {
           </TableHeader>
 
           <TableBody>
-            <TableRow>
-              <TableCell>Pizza peperoni</TableCell>
-              <TableCell className="text-right">2</TableCell>
-              <TableCell className="text-right">R$ 69,90</TableCell>
-              <TableCell className="text-right">R$ 139,80</TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell>Pizza mussarela</TableCell>
-              <TableCell className="text-right">2</TableCell>
-              <TableCell className="text-right">R$ 50,00</TableCell>
-              <TableCell className="text-right">R$ 100,00</TableCell>
-            </TableRow>
+            {order.orderItems.map((item) => {
+              return (
+                <TableRow key={item.id}>
+                  <TableCell>{item.name}</TableCell>
+                  <TableCell className="text-right">{item.quantity}</TableCell>
+                  <TableCell className="text-right">
+                    {currencyFormatter(item.priceInCents / 100)}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    {currencyFormatter(
+                      (item.priceInCents * item.quantity) / 100,
+                    )}
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
 
           <TableFooter>
             <TableRow>
               <TableCell colSpan={3}>Total do pedido:</TableCell>
               <TableCell className="text-right font-medium">
-                R$ 249,80
+                {currencyFormatter(order.totalInCents / 100)}
               </TableCell>
             </TableRow>
           </TableFooter>

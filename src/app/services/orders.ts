@@ -1,5 +1,12 @@
 import { httpClient } from "../lib/axios";
 
+type OrderStatus =
+  | "pending"
+  | "canceled"
+  | "processing"
+  | "delivering"
+  | "delivered";
+
 interface GetOrdersQuery {
   pageIndex?: number | null;
   orderId?: string | null;
@@ -10,7 +17,7 @@ interface GetOrdersQuery {
 interface GetOrdersRes {
   orders: Array<{
     orderId: string;
-    status: "pending" | "canceled" | "processing" | "delivering" | "delivered";
+    status: OrderStatus;
     customerName: string;
     total: number;
     createdAt: string;
@@ -36,6 +43,39 @@ export async function getOrders({
       status,
     },
   });
+
+  return response.data;
+}
+
+interface GetOrderDetailsParams {
+  orderId: string;
+}
+
+interface GetOrderDetailsRes {
+  id: string;
+  status: OrderStatus;
+  totalInCents: number;
+  createdAt: string;
+  customer: {
+    name: string;
+    email: string;
+    phone: string | null;
+  };
+  orderItems: Array<{
+    id: string;
+    name: string;
+    priceInCents: number;
+    quantity: number;
+    product: {
+      name: string;
+    };
+  }>;
+}
+
+export async function getOrderDetails({ orderId }: GetOrderDetailsParams) {
+  const response = await httpClient.get<GetOrderDetailsRes>(
+    `/orders/${orderId}`,
+  );
 
   return response.data;
 }
