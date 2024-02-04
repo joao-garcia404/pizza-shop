@@ -63,7 +63,6 @@ interface GetOrderDetailsRes {
   };
   orderItems: Array<{
     id: string;
-    name: string;
     priceInCents: number;
     quantity: number;
     product: {
