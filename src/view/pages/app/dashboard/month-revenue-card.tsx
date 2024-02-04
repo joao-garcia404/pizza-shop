@@ -12,6 +12,8 @@ import {
   CardTitle,
 } from "@/view/components/ui/card";
 
+import { MetricCardSkeleton } from "./metric-card-skeleton";
+
 export function MonthRevenueCard() {
   const { data: monthRevenue } = useQuery({
     queryKey: ["metrics", "month-revenue"],
@@ -28,7 +30,7 @@ export function MonthRevenueCard() {
       </CardHeader>
 
       <CardContent className="space-y-1">
-        {monthRevenue && (
+        {monthRevenue ? (
           <>
             <span className="text-2xl font-bold tracking-tight">
               {currencyFormatter(monthRevenue.receipt / 100)}
@@ -52,6 +54,8 @@ export function MonthRevenueCard() {
               )}
             </p>
           </>
+        ) : (
+          <MetricCardSkeleton />
         )}
       </CardContent>
     </Card>
