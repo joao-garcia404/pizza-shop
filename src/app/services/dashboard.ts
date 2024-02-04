@@ -65,14 +65,28 @@ export async function getPopularProducts() {
   return response.data;
 }
 
+interface GetRevenueInPeriodParams {
+  from?: Date;
+  to?: Date;
+}
+
 type GetDailyRevenueInPeriodRes = Array<{
   date: string;
-  receiptw: number;
-}>
+  receipt: number;
+}>;
 
-export async function getDailyRevenueInPeriod() {
+export async function getDailyRevenueInPeriod({
+  from,
+  to,
+}: GetRevenueInPeriodParams) {
   const response = await httpClient.get<GetDailyRevenueInPeriodRes>(
     "/metrics/daily-receipt-in-period",
+    {
+      params: {
+        from,
+        to,
+      },
+    },
   );
 
   return response.data;
