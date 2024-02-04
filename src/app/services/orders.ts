@@ -1,6 +1,6 @@
 import { httpClient } from "../lib/axios";
 
-type OrderStatus =
+export type OrderStatus =
   | "pending"
   | "canceled"
   | "processing"
@@ -14,7 +14,7 @@ interface GetOrdersQuery {
   customerName?: string | null;
 }
 
-interface GetOrdersRes {
+export interface GetOrdersRes {
   orders: Array<{
     orderId: string;
     status: OrderStatus;
@@ -76,6 +76,46 @@ export async function getOrderDetails({ orderId }: GetOrderDetailsParams) {
   const response = await httpClient.get<GetOrderDetailsRes>(
     `/orders/${orderId}`,
   );
+
+  return response.data;
+}
+
+interface CancelOrderParams {
+  orderId: string;
+}
+
+export async function cancelOrder({ orderId }: CancelOrderParams) {
+  const response = await httpClient.patch<null>(`/orders/${orderId}/cancel`);
+
+  return response.data;
+}
+
+interface ApproveOrderParams {
+  orderId: string;
+}
+
+export async function approveOrder({ orderId }: ApproveOrderParams) {
+  const response = await httpClient.patch<null>(`/orders/${orderId}/approve`);
+
+  return response.data;
+}
+
+interface DeliverOrderParams {
+  orderId: string;
+}
+
+export async function deliverOrder({ orderId }: DeliverOrderParams) {
+  const response = await httpClient.patch<null>(`/orders/${orderId}/deliver`);
+
+  return response.data;
+}
+
+interface DispatchOrderParams {
+  orderId: string;
+}
+
+export async function dispatchOrder({ orderId }: DispatchOrderParams) {
+  const response = await httpClient.patch<null>(`/orders/${orderId}/dispatch`);
 
   return response.data;
 }
